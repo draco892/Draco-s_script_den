@@ -1,0 +1,1 @@
+ffmpeg -framerate 10 -pattern_type glob -i "PHOTOS/*.jpeg" -vf "scale=1280:-1:flags=lanczos,fps=10,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" Dancing_Lion.gif
