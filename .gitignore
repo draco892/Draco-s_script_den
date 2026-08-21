@@ -1,41 +1,98 @@
-# Compiled Lua sources
-luac.out
+# =========================================
+# Operating system files
+# =========================================
 
-# luarocks build files
-*.src.rock
-*.zip
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+Thumbs.db
+Desktop.ini
+
+# =========================================
+# Editors and IDEs
+# =========================================
+
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.#*
+
+# =========================================
+# Temporary and backup files
+# =========================================
+
+*.tmp
+*.temp
+*.bak
+*.orig
+*.rej
+
+# =========================================
+# Logs and generated output
+# =========================================
+
+*.log
+logs/
+output/
+reports/
+
+# =========================================
+# Caches
+# =========================================
+
+.cache/
+.cache-*/
+*.cache
+__pycache__/
+
+# =========================================
+# Local configuration files
+# =========================================
+
+.env
+.env.*
+!.env.example
+
+*.local
+config.local*
+settings.local*
+
+# =========================================
+# Runtime files
+# =========================================
+
+run/
+runtime/
+state/
+*.pid
+*.lock
+
+# =========================================
+# Test and coverage results
+# =========================================
+
+coverage/
+.nyc_output/
+test-results/
+
+# =========================================
+# Generated packages and archives
+# =========================================
+
+dist/
+build/
+release/
+*.tar
 *.tar.gz
+*.zip
 
-# Object files
-*.o
-*.os
-*.ko
-*.obj
-*.elf
+# =========================================
+# Shell and system files
+# =========================================
 
-# Precompiled Headers
-*.gch
-*.pch
-
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
-*.def
-*.exp
-
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
-
-# Executables
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
-
+.bash_history
+.zsh_history
