@@ -4,6 +4,8 @@ set -Eeuo pipefail
 
 readonly REPO_DIR="/Users/draco892/src/darktable"
 readonly BRANCH="master"
+readonly UPSTREAM_REMOTE="upstream"
+readonly ORIGIN_REMOTE="origin"
 readonly INSTALL_PREFIX="${HOME}/bin/darktable-dev"
 
 # Imposta a 1 per includere anche i file non tracciati nello stash.
@@ -55,6 +57,12 @@ done
 
 cd "$REPO_DIR"
 
+log "Checking Git remotes"
+git remote get-url "$UPSTREAM_REMOTE" >/dev/null 2>&1 \
+    || die "Git remote '$UPSTREAM_REMOTE' is not configured."
+git remote get-url "$ORIGIN_REMOTE" >/dev/null 2>&1 \
+    || die "Git remote '$ORIGIN_REMOTE' is not configured."
+
 log "Checking working tree"
 if [[ -n "$(git status --porcelain)" ]]; then
     log "Stashing local changes"
@@ -74,9 +82,12 @@ fi
 log "Switching to ${BRANCH}"
 git switch "$BRANCH"
 
-log "Updating repository"
-git fetch --all --prune
-git pull --ff-only origin "$BRANCH"
+log "Updating from upstream"
+git fetch "$UPSTREAM_REMOTE" --prune
+git merge --ff-only "${UPSTREAM_REMOTE}/${BRANCH}"
+
+log "Updating fork"
+git push "$ORIGIN_REMOTE" "$BRANCH"
 
 log "Removing previous build directory"
 rm -rf -- build
@@ -90,10 +101,7 @@ export LDFLAGS="-L${LLVM_PREFIX}/lib ${LDFLAGS:-}"
 export CPPFLAGS="-I${LLVM_PREFIX}/include ${CPPFLAGS:-}"
 
 export CMAKE_PREFIX_PATH="${LUA_PREFIX}:${LIBSOUP_PREFIX}:${ICU_PREFIX}${CMAKE_PREFIX_PATH:+:${CMAKE_PREFIX_PATH}}"
-export PKG_CONFIG_PATH="\
-${LIBSOUP_PREFIX}/lib/pkgconfig:\
-${ICU_PREFIX}/lib/pkgconfig\
-${PKG_CONFIG_PATH:+:${PKG_CONFIG_PATH}}"
+export PKG_CONFIG_PATH="${LIBSOUP_PREFIX}/lib/pkgconfig:${ICU_PREFIX}/lib/pkgconfig${PKG_CONFIG_PATH:+:${PKG_CONFIG_PATH}}"
 
 log "Building and installing darktable"
 ./build.sh \
