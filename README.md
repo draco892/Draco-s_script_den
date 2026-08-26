@@ -1,5 +1,7 @@
 # Draco's Script Den
 
+> Where bash scripts roam free and automation dreams come true.
+
  _____________________________
 |                  _        |
 |                 /"\       |
@@ -16,9 +18,7 @@
 |    \ \.___,/  /           |
 |     \.______,/            |
 |         Draco             |
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-> Where bash scripts roam free and automation dreams come true.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Welcome to my personal collection of scripts, tools, and digital contraptions. This is where I store everything from image manipulation wizardry to automation spells that make my computer do my bidding.
 
