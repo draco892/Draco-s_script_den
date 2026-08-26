@@ -100,6 +100,7 @@ Do whatever you want with this stuff. Break it, fix it, improve it, share it. Ju
 
 - Thanks to all the open-source heroes whose code I've shamelessly borrowed
 - Coffee, for making all of this possible
+- Cruciani to make me listen more and more idiots while I listen to the Zanzara everyday 
 - You, for reading this far
 
 ## Contact
