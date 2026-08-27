@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 500 500"
+   width="100%"
+   height="100%"
+   version="1.1"
+   id="svg6"
+   sodipodi:docname="Draco_Logo_Black.svg"
+   inkscape:version="1.4.4 (dcaf3e7, 2026-05-05)"
+   inkscape:export-filename="logo_Black_WBackground.png"
+   inkscape:export-xdpi="221"
+   inkscape:export-ydpi="221"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs6">
+    <rect
+       x="247.96243"
+       y="383.49469"
+       width="2.5668989"
+       height="30.289407"
+       id="rect7" />
+    <rect
+       x="142.71958"
+       y="382.98131"
+       width="218.1864"
+       height="130.39846"
+       id="rect6" />
+  </defs>
+  <sodipodi:namedview
+     id="namedview6"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     inkscape:zoom="1.8269176"
+     inkscape:cx="221.13751"
+     inkscape:cy="288.46402"
+     inkscape:window-width="1512"
+     inkscape:window-height="949"
+     inkscape:window-x="0"
+     inkscape:window-y="33"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg6" />
+  <!-- Sfondo Scuro Modificabile -->
+  <rect
+     width="100%"
+     height="100%"
+     fill="#0d0d0d"
+     id="rect1"
+     x="0"
+     y="0"
+     style="display:inline;fill:#ffffff;fill-opacity:1" />
+  <g
+     transform="translate(25,25)"
+     id="g6"
+     style="display:inline"
+     inkscape:label="camera">
+    <!-- OBIETTIVO (Focus centrale) -->
+    <circle
+       cx="200"
+       cy="250"
+       r="70"
+       fill="none"
+       stroke="#ffffff"
+       stroke-width="12"
+       id="circle1"
+       style="stroke:#030000;stroke-opacity:1" />
+    <circle
+       cx="200"
+       cy="250"
+       r="45"
+       fill="none"
+       stroke="#a3cf62"
+       stroke-width="8"
+       id="circle2"
+       style="stroke:#6dcaff;stroke-opacity:1" />
+    <circle
+       cx="200"
+       cy="250"
+       r="20"
+       fill="#a3cf62"
+       id="circle3" />
+    <!-- CORPO MACCHINA MACRO -->
+    <path
+       d="m 110,180 v 140 a 20,20 0 0 0 20,20 h 180 a 20,20 0 0 0 20,-20 V 200 a 20,20 0 0 0 -20,-20 h -50 l -15,-20 h -80 l -15,20 z"
+       fill="none"
+       stroke="#ffffff"
+       stroke-width="12"
+       stroke-linejoin="round"
+       id="path3"
+       style="stroke:#000000;stroke-opacity:1" />
+    <!-- LINEA MINIMALE DEL DRACO / RETTILE -->
+    <!-- Una linea continua che definisce la testa e l'occhio stilizzato che si fonde con la fotocamera -->
+    <path
+       d="m 330,220 c 50,-20 80,20 60,70 -20,40 -60,90 -100,120"
+       fill="none"
+       stroke="#ffffff"
+       stroke-width="12"
+       stroke-linecap="round"
+       id="path4"
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-opacity:1" />
+    <!-- Dettaglio Cresta/Dorso Stilizzato (Verde) -->
+    <path
+       d="m 385,220 c 35,30 25,80 -10,120"
+       fill="none"
+       stroke="#a3cf62"
+       stroke-width="8"
+       stroke-linecap="round"
+       stroke-dasharray="1, 15"
+       id="path5" />
+    <!-- Occhio del Draco (Tratto fiero e minimale nel mirino) -->
+    <path
+       d="m 300,160 c 15,-15 35,-10 40,5"
+       fill="none"
+       stroke="#a3cf62"
+       stroke-width="8"
+       stroke-linecap="round"
+       id="path6" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer1"
+     inkscape:label="Text">
+    <text
+       xml:space="preserve"
+       id="text6"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:29.3333px;line-height:0;font-family:'Myanmar MN';-inkscape-font-specification:'Myanmar MN';text-align:center;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect6);shape-padding:3.59366;display:inline;fill:#a3cf62;fill-opacity:1;stroke:#6dcaff;stroke-width:0.83428122;stroke-dasharray:none;stroke-opacity:1;stroke-linejoin:miter;stroke-linecap:round;paint-order:fill markers stroke"
+       x="82.910835"
+       y="0"
+       inkscape:label="Name"
+       transform="matrix(2.4367957,0,0,2.3583917,-381.60158,-499.46543)"><tspan
+         x="208.88677"
+         y="389.1474"
+         id="tspan2">Draco</tspan></text>
+  </g>
+</svg>

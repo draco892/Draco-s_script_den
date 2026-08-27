@@ -1,3 +1,34 @@
+LOGO:
+
+i=0
+
+for file in *.jpeg; do
+    dimensions=$(magick identify -format "%w %h" "$file")
+    width=$(echo "$dimensions" | cut -d' ' -f1)
+    height=$(echo "$dimensions" | cut -d' ' -f2)
+
+    if [ "$width" -lt "$height" ]; then
+        short_side=$width
+    else
+        short_side=$height
+    fi
+
+    diag=$(echo "sqrt($width*$width + $height*$height)" | bc)
+    logo_size=$(printf "%.0f" "$(echo "$diag / 12" | bc -l)")
+
+    magick "$file" \
+        \( "../../../Draco_logo/logo_White.png" -resize "${logo_size}x" \) \
+        -gravity SouthEast \
+        -geometry +10+10 \
+        -composite \
+        "WITH_LOGO/DRA_FUR26_$(printf "%04d" "$i").jpeg"
+
+    i=$((i + 1))
+done
+
+
+versione parallela da salvare ed eseguiire in un file .sh
+
 #!/usr/bin/env bash
 
 # --- SAFETY SETTINGS ---
@@ -25,10 +56,9 @@ if [ "$total" -eq 0 ]; then
 fi
 
 # --- PARALLELISM SETUP ---
-# Find number of CPU cores using sysctl, but cap the work at the 75% of the maxium core capacity
+# Find number of CPU cores using sysctl, but cap the work at 8 jobs maximum
 jobs=$(sysctl -n hw.ncpu)
-jobs=$(( jobs * 75 / 100 ))
-jobs=$(( jobs < 1 ? 1 : jobs ))
+jobs=$(( jobs > 10 ? 10 : jobs ))
 
 # Create a temporary file to track progress across different parallel processes
 progress_file=$(mktemp)
@@ -77,7 +107,7 @@ export -f process_one
 export total progress_file
 
 # --- EXECUTION ENGINE (The Pipeline) ---
-i=313
+i=0
 for file in "${files[@]}"; do
     # We use a 'null separator' (\0) to handle filenames that have spaces safely
     printf '%s\0%s\0' "$i" "$file"
@@ -85,5 +115,5 @@ for file in "${files[@]}"; do
 done | xargs -0 -n 2 -P "$jobs" bash -c 'process_one "$@"' _
 
 # --- CLEANUP ---
-printf "\n\n\nDone. Processed %d files using %d parallel jobs.\n\n" "$total" "$jobs"
+printf "\n\n\nDone. Processed %d files using %d parallel jobs.\n" "$total" "$jobs"
 rm -f "$progress_file" # Remove the temporary counter file
