@@ -25,9 +25,10 @@ exit 0
 fi
 
 # --- PARALLELISM SETUP ---
-# Find number of CPU cores using sysctl, but cap the work at 8 jobs maximum
+# Find number of CPU cores using sysctl, but cap the work at the 75% of the maxium core capacity
 jobs=$(sysctl -n hw.ncpu)
-jobs=$(( jobs > 10 ? 10 : jobs ))
+jobs=$(( jobs * 75 / 100 ))
+jobs=$(( jobs < 1 ? 1 : jobs ))
 
 # Create a temporary file to track progress across different parallel processes
 progress_file=$(mktemp)
