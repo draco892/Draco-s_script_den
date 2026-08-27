@@ -37,42 +37,42 @@ echo 0 > "$progress_file"
 # --- THE WORKER FUNCTION ---
 # This function runs inside every background process
 process_one() {
-local idx="$1" # The unique index number
-local file="$2" # The filename
+   local idx="$1" # The unique index number
+   local file="$2" # The filename
 
-# Extract width and height using string manipulation (very fast)
-dimensions=$(magick identify -format "%w %h" "$file")
-width=${dimensions% *} # Everything before the space
-height=${dimensions#* } # Everything after the space
+   # Extract width and height using string manipulation (very fast)
+   dimensions=$(magick identify -format "%w %h" "$file")
+   width=${dimensions% *} # Everything before the space
+   height=${dimensions#* } # Everything after the space
 
-# Calculate diagonal and scale logo size
-diag=$(echo "sqrt($width*$width + $height*$height)" | bc -l)
-# NOTE: This line might still trigger 'invalid number' on some Macs
-logo_size=$(printf "%.0f" "$(echo "$diag / 12" | bc -l)")
+   # Calculate diagonal and scale logo size
+   diag=$(echo "sqrt($width*$width + $height*$height)" | bc -l)
+   # NOTE: This line might still trigger 'invalid number' on some Macs
+   logo_size=$(printf "%.0f" "$(echo "$diag / 12" | bc -l)")
 
-# Apply the logo via ImageMagick con trasparenza del 70% (opacità³³0%)
-magick -limit thread 1 "$file" \
-\( "../../../Draco_logo/logo_White.png" \
-   -resize "${logo_size}x" \
-   -channel A -evaluate multiply 0.30 +channel \
-\) \
--gravity SouthEast \
--geometry +10+10 \
--composite \
-"WITH_LOGO/DRA_FUR26_$(printf "%04d" "$idx").jpeg"
+   # Apply the logo via ImageMagick con trasparenza del 70% (opacità³³0%)
+   magick -limit thread 1 "$file" \
+   \( "../../../Draco_logo/logo_White.png" \
+      -resize "${logo_size}x" \
+      -channel A -evaluate multiply 0.30 +channel \
+   \) \
+   -gravity SouthEast \
+   -geometry +10+10 \
+   -composite \
+   "WITH_LOGO/DRA_FUR26_$(printf "%04d" "$idx").jpeg"
 
-# --- PROGRESS TRACKING (Atomic Update) ---
-# Read the current count, increment it, and write it back to the temp file
-done_count=$(( $(cat "$progress_file") + 1 ))
-echo "$done_count" > "$progress_file"
+   # --- PROGRESS TRACKING (Atomic Update) ---
+   # Read the current count, increment it, and write it back to the temp file
+   done_count=$(( $(cat "$progress_file") + 1 ))
+   echo "$done_count" > "$progress_file"
 
-# Visual Progress Bar Output
-# This creates a bar using '#' characters based on percentage done
-printf "\r[%s] %3d%% processed: %d left: %d" \
-"$(printf '%*s' "$(( done_count * 40 / total ))" '' | tr ' ' '#')" \
-"$(( done_count * 100 / total ))" \
-"$done_count" \
-"$(( total - done_count ))"
+   # Visual Progress Bar Output
+   # This creates a bar using '#' characters based on percentage done
+   printf "\r[%s] %3d%% processed: %d left: %d" \
+   "$(printf '%*s' "$(( done_count * 40 / total ))" '' | tr ' ' '#')" \
+   "$(( done_count * 100 / total ))" \
+   "$done_count" \
+   "$(( total - done_count ))"
 }
 
 # Export the function and variables so xargs can see them in sub-shells
