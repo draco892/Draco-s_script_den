@@ -32,11 +32,18 @@ Think of this as my digital workshop—a place where I throw together scripts th
 
 ```
 Draco-s_script_den/
-├── Image_Manipulation/              # Image processing and GIF creation
-│   ├── GifCreation.bash             # Create animated GIFs from image sequences
-│   ├── GifCreationSample.bash       # Legacy sample GIF creation script
-│   ├── README_GifCreation.txt       # Documentation for GIF creation
-│   └── README_processImageLogo.txt  # Documentation for image/logo processing
+├── AI_Lab/                      # AI-powered code analysis tools
+│   ├── agent.py                 # Interactive Technical Analyst
+│   ├── code_agent.py            # Automated Structural Explorer
+│   ├── README.txt               # Lab Overview
+│   ├── README_agent.txt         # Documentation for agent.py
+│   └── README_code_agent.txt    # Documentation for code_agent.py
+│
+├── Image_Manipulation/          # Image processing and GIF creation
+│   ├── GifCreation.bash         # Create animated GIFs from image sequences
+│   ├── GifCreationSample.bash   # Legacy sample GIF creation script
+│   ├── README_GifCreation.txt   # Documentation for GIF creation
+│   └── README_processImageLogo.txt # Documentation for image/logo processing
 │
 ├── build-darktable-macos-arm64.sh           # Build darktable on Apple Silicon
 ├── build-lightzone-macos-arm64.sh           # Build LightZone on Apple Silicon
@@ -48,6 +55,13 @@ Draco-s_script_den/
 ```
 
 ## What's Inside?
+
+### AI Lab
+
+The `AI_Lab/` directory contains experimental AI agents that leverage Local LLMs (via Ollama) to interact with and analyze your codebases.
+
+- **agent.py**: An interactive, "expert-mode" agent designed for deep-dive technical analysis. It is optimized for navigating C++/Qt projects, searching for specific symbols, and understanding code relationships.
+- **code_agent.py**: A lightweight, automated utility designed for structural exploration, using pattern-based searching to map out project hierarchies.
 
 ### Image Manipulation
 
