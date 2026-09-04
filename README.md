@@ -40,18 +40,31 @@ Draco-s_script_den/
 │   └── README_code_agent.txt    # Documentation for code_agent.py
 │
 ├── Image_Manipulation/          # Image processing and GIF creation
+│   ├── Draco_logo/              # Logo assets
+│   ├── Originals/               # Original source images
 │   ├── GifCreation.bash         # Create animated GIFs from image sequences
-│   ├── GifCreationSample.bash   # Legacy sample GIF creation script
+│   ├── processImageLogo.sh      # Logo application script
+│   ├── processImageLogo_transparent.sh # Logo with 30% opacity
 │   ├── README_GifCreation.txt   # Documentation for GIF creation
-│   └── README_processImageLogo.txt # Documentation for image/logo processing
+│   └── README_processImageLogo.txt # Documentation for logo processing
 │
-├── build-darktable-macos-arm64.sh           # Build darktable on Apple Silicon
-├── build-lightzone-macos-arm64.sh           # Build LightZone on Apple Silicon
-├── build-lightzone-macos-arm64_app_build-2.sh  # Install LightZone as macOS app
-├── port_self_update.sh                      # MacPorts maintenance script
+├── darktable/                   # Darktable build scripts (Apple Silicon)
+│   ├── build-darktable-macos-arm64_C++17.sh
+│   ├── build-darktable-macos-arm64_C++20.sh
+│   ├── build-darktable-macos-arm64_C++23.sh
+│   └── build-darktable-macos-arm64_C++26.sh
 │
-├── README.md                        # You're reading it right now!
-└── .gitignore                       # Keeping the repo clean, one file at a time
+├── LightZone/                   # LightZone build scripts
+│   ├── build-lightzone-macos-arm64.sh
+│   ├── build-lightzone-macos-arm64_app_build.sh
+│   └── README-lightzone-build-v2.txt
+│
+├── port/                        # MacPorts maintenance
+│   ├── port_self_update.sh
+│   └── README-port-self-update.txt
+│
+├── LICENSE                      # Project License
+└── README.md                    # You're reading it right now!
 ```
 
 ## What's Inside?
@@ -68,7 +81,8 @@ The `AI_Lab/` directory contains experimental AI agents that leverage Local LLMs
 The `Image_Manipulation/` directory contains scripts and documentation for working with images and creating animated GIFs.
 
 - **GifCreation.bash**: Create animated GIFs from sequences of images using ffmpeg. Perfect for making tutorials, memes, or capturing animations.
-- **GifCreationSample.bash**: A legacy one-liner sample script showing basic GIF creation with ffmpeg.
+- **processImageLogo.sh**: Applies a logo to an image.
+- **processImageLogo_transparent.sh**: Applies a logo to an image with 30% opacity.
 - **README_GifCreation.txt**: Detailed documentation on how to create GIFs from image sequences, including parameter explanations and usage examples.
 - **README_processImageLogo.txt**: Documentation for image processing workflows, including logo manipulation and batch image operations.
 
@@ -76,9 +90,10 @@ The `Image_Manipulation/` directory contains scripts and documentation for worki
 
 These scripts automate the compilation and installation of open-source photography software on macOS Apple Silicon.
 
-- **build-darktable-macos-arm64.sh**: Updates the darktable repository from upstream, synchronizes your fork, and builds a development version of darktable with LLVM and Homebrew dependencies. Includes automatic stash/restore of local changes.
-- **build-lightzone-macos-arm64.sh**: Builds the LightZone photo editor using Java 21 and Homebrew dependencies. Cleans, compiles (excluding tests), and creates JAR artifacts.
-- **build-lightzone-macos-arm64_app_build-2.sh**: Creates a macOS application bundle from the LightZone build and installs it into `/Applications`. Prompts before replacing existing installations and can launch the app after installation.
+- **darktable/**: Contains scripts to build darktable with different C++ standards (17, 20, 23, 26).
+- **LightZone/**: Contains scripts for building and installing the LightZone editor.
+  - **build-lightzone-macos-arm64.sh**: Builds the LightZone photo editor using Java 21 and Homebrew dependencies.
+  - **build-lightzone-macos-arm64_app_build.sh**: Creates a macOS application bundle from the LightZone build and installs it into `/Applications`.
 
 ### System Maintenance
 
