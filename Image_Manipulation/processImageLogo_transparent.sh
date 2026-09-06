@@ -80,7 +80,7 @@ export -f process_one
 export total progress_file
 
 # --- EXECUTION ENGINE (The Pipeline) ---
-i=313
+i=1
 for file in "${files[@]}"; do
 # We use a 'null separator' (\0) to handle filenames that have spaces safely
 printf '%s\0%s\0' "$i" "$file"
