@@ -45,10 +45,14 @@ process_one() {
    width=${dimensions% *} # Everything before the space
    height=${dimensions#* } # Everything after the space
 
-   # Calculate diagonal and scale logo size
-   diag=$(echo "sqrt($width*$width + $height*$height)" | bc -l)
-   # NOTE: This line might still trigger 'invalid number' on some Macs
-   logo_size=$(printf "%.0f" "$(echo "$diag / 12" | bc -l)")
+   # Calculate logo size: use height for horizontal/panoramic images to avoid oversized logos,
+   # but maintain the diagonal-based proportion for vertical/square images.
+   if [ "$width" -gt "$height" ]; then
+      calc_val="$height"
+   else
+      calc_val=$(echo "sqrt($width*$width + $height*$height)" | bc -l)
+   fi
+   logo_size=$(printf "%.0f" "$(echo "$calc_val / 12" | bc -l)")
 
    # Apply the logo via ImageMagick con trasparenza del 70% (opacità³³0%)
    magick -limit thread 1 "$file" \
