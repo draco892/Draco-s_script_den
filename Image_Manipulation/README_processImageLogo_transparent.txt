@@ -1,8 +1,8 @@
 =====================================================
-    IMAGE LOGO PROCESSING - QUICK START GUIDE
+    IMAGE LOGO PROCESSING (TRANSPARENT) - QUICK START
 =====================================================
 
-This script automatically applies a white logo watermark to all .jpeg images in the current directory. It features intelligent scaling based on image proportions to ensure the logo looks consistent across different formats.
+This script automatically applies a white logo watermark with transparency to all .jpeg images in the current directory. It uses an intelligent scaling system to maintain visual consistency across varying image proportions.
 
 ------------------------------------------------------
 1. PREREQUISITES
@@ -18,7 +18,7 @@ You must have the following tools installed:
 To ensure the script works correctly, organize your folders like this:
 
 . (Current Folder)
-├── processImageLogo.sh
+├── processImageLogo_transparent.sh
 ├── [Your .jpeg files here]
 └── Draco_logo/
     └── logo_White.png
@@ -32,9 +32,9 @@ Note: The script expects the logo to be found at
 1. Open your terminal.
 2. Navigate to the folder containing the script and images.
 3. Make the script executable:
-   chmod +x processImageLogo.sh
+   chmod +x processImageLogo_transparent.sh
 4. Run the script:
-   ./processImageLogo.sh
+   ./processImageLogo_transparent.sh
 
 ------------------------------------------------------
 4. WHAT HAPPENS?
