@@ -45,25 +45,34 @@ process_one() {
    width=${dimensions% *} # Everything before the space
    height=${dimensions#* } # Everything after the space
 
-   # Calculate logo size: use height for horizontal/panoramic images to avoid oversized logos,
-   # but maintain the diagonal-based proportion for vertical/square images.
-   if [ "$width" -gt "$height" ]; then
-      calc_val="$height"
+   # Calculate logo size:
+   # 1. Extreme panoramas (aspect ratio > 3:1): use height-based scaling.
+   # 2. Vertical images (aspect ratio < 1): use a larger diagonal proportion.
+   # 3. Regular horizontal/square (1 <= aspect ratio <= 3): use a reduced diagonal proportion.
+   aspect_ratio=$(echo "$width / $height" | bc -l)
+   if (( $(echo "$aspect_ratio > 3" | bc -l) )); then
+      # Panoramic scaling: height/6 is a good balance for extreme widths
+      logo_size=$(printf "%.0f" "$(echo "$height / 6" | bc -l)")
+   elif (( $(echo "$aspect_ratio < 1" | bc -l) )); then
+      # Vertical scaling: balanced size (approx 80% of diagonal / 10)
+      calc_val=$(echo "sqrt($width*$width + $height*$height)*0.80" | bc -l)
+      logo_size=$(printf "%.0f" "$(echo "$calc_val / 10" | bc -l)")
    else
-      calc_val=$(echo "sqrt($width*$width + $height*$height)" | bc -l)
+      # Regular horizontal/square scaling: reduced by 30% (diagonal * 0.70 / 12)
+      calc_val=$(echo "sqrt($width*$width + $height*$height)*0.70" | bc -l)
+      logo_size=$(printf "%.0f" "$(echo "$calc_val / 12" | bc -l)")
    fi
-   logo_size=$(printf "%.0f" "$(echo "$calc_val / 12" | bc -l)")
 
-   # Apply the logo via ImageMagick con trasparenza del 70% (opacità³³0%)
+   # Apply the logo via ImageMagick with 50% opacity (1.0 no transparency, 0.30 70% transparency and so on)
    magick -limit thread 1 "$file" \
    \( "../../../Draco_logo/logo_White.png" \
       -resize "${logo_size}x" \
-      -channel A -evaluate multiply 0.30 +channel \
+      -channel A -evaluate multiply 0.50 +channel \
    \) \
    -gravity SouthEast \
    -geometry +10+10 \
    -composite \
-   "WITH_LOGO/DRA_FUR26_$(printf "%04d" "$idx").jpeg"
+   "WITH_LOGO/DRA_SIG26_$(printf "%03d" "$idx").jpeg"
 
    # --- PROGRESS TRACKING (Atomic Update) ---
    # Read the current count, increment it, and write it back to the temp file
