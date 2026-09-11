@@ -1,0 +1,20 @@
+git checkout master
+git fetch --all
+git pull
+
+brew install dotnet
+
+dotnet nuget add source https://api.nuget.org/v3/index.json -n nuget.org
+dotnet restore
+dotnet build
+
+
+NOTE: 
+  # Restore dotnet dependencies
+  dotnet restore
+
+  # Compile the project
+  dotnet build
+
+  # Start the application in development mode
+  dotnet run --project src/SourceGit.csproj

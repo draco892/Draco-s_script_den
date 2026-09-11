@@ -1,0 +1,83 @@
+cd ..
+export LIBRARY_PATH="$(brew --prefix openssl@3)/lib:$(brew --prefix brotli)/lib:$LIBRARY_PATH"
+export CPATH="$(brew --prefix openssl@3)/include:$CPATH"
+
+dotnet publish -c Release -r osx-arm64 -o build/osx-arm64/publish src/SourceGit.csproj -nodeReuse:false
+
+mkdir -p /Applications/SourceGit.app/Contents/MacOS
+mkdir -p /Applications/SourceGit.app/Contents/Resources
+
+cat > /Applications/SourceGit.app/Contents/Info.plist << 'EOF'
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>CFBundleName</key>
+    <string>SourceGit</string>
+    <key>CFBundleDisplayName</key>
+    <string>SourceGit</string>
+    <key>CFBundleIdentifier</key>
+    <string>com.yourname.sourcegit</string>
+    <key>CFBundleVersion</key>
+    <string>1.0.0</string>
+    <key>CFBundleShortVersionString</key>
+    <string>1.0.0</string>
+    <key>CFBundleExecutable</key>
+    <string>SourceGit</string>
+    <key>CFBundlePackageType</key>
+    <string>APPL</string>
+    <key>NSHighResolutionCapable</key>
+    <true/>
+</dict>
+</plist>
+EOF
+
+cp -a src/bin/Release/net10.0/osx-arm64/publish/* /Applications/SourceGit.app/Contents/MacOS/
+
+chmod +x /Applications/SourceGit.app/Contents/MacOS/SourceGit
+
+sudo xattr -cr /Applications/SourceGit.app
+
+
+NOTE:
+    # 1. Publish in self-contained mode (Release)
+    dotnet publish src/SourceGit.csproj -c Release -r osx-arm64 --self-contained
+
+    # 2. Create the .app bundle structure
+    mkdir -p /Applications/SourceGit.app/Contents/MacOS
+    mkdir -p /Applications/SourceGit.app/Contents/Resources
+
+    # 3. Create the Info.plist file
+    cat > /Applications/SourceGit.app/Contents/Info.plist << 'EOF'
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+    <plist version="1.0">
+    <dict>
+        <key>CFBundleName</key>
+        <string>SourceGit</string>
+        <key>CFBundleDisplayName</key>
+        <string>SourceGit</string>
+        <key>CFBundleIdentifier</key>
+        <string>com.yourname.sourcegit</string>
+        <key>CFBundleVersion</key>
+        <string>1.0.0</string>
+        <key>CFBundleShortVersionString</key>
+        <string>1.0.0</string>
+        <key>CFBundleExecutable</key>
+        <string>SourceGit</string>
+        <key>CFBundlePackageType</key>
+        <string>APPL</string>
+        <key>NSHighResolutionCapable</key>
+        <true/>
+    </dict>
+    </plist>
+    EOF
+
+    # 4. Copy the published files into the bundle
+    cp -a src/bin/Release/net10.0/osx-arm64/publish/* /Applications/SourceGit.app/Contents/MacOS/
+
+    # 5. Make the main file executable
+    chmod +x /Applications/SourceGit.app/Contents/MacOS/SourceGit
+
+    # 6. Remove the Gatekeeper security lock
+    sudo xattr -cr /Applications/SourceGit.app

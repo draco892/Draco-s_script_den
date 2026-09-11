@@ -63,6 +63,8 @@ Draco-s_script_den/
 │   ├── port_self_update.sh
 │   └── README-port-self-update.txt
 │
+├── sourcegit/                   # SourceGit
+│   └── README.md                # SourceGit documentation
 ├── LICENSE                      # Project License
 └── README.md                    # You're reading it right now!
 ```
@@ -98,6 +100,12 @@ These scripts automate the compilation and installation of open-source photograp
 ### System Maintenance
 
 - **port_self_update.sh**: Keeps MacPorts up to date by refreshing the ports tree, upgrading outdated packages, and removing inactive ports. Provides colored output and fail-fast error handling for safe system maintenance.
+
+### SourceGit
+
+The `sourcegit/` directory contains scripts and documentation for building and running SourceGit.
+
+SourceGit is a tool designed to help manage and interact with source code, and these scripts facilitate building the application as a native macOS application bundle. For details on building, see the documentation in the `sourcegit/` directory.
 
 ## How to Use This Madness
 
