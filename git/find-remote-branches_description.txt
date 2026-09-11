@@ -1,0 +1,3 @@
+script description:
+
+This script fetches and prunes all remote-tracking references, enumerates every known remote branch, skips symbolic HEAD references, and searches the current contents of each branch for the literal string SCN2. For every branch containing at least one match in a non-binary file, it prints the branch name without the remote name prefix.
