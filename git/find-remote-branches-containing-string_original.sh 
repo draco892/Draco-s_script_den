@@ -1,0 +1,16 @@
+git fetch --all --prune
+
+git for-each-ref \
+    --format='%(refname:short)' \
+    refs/remotes/ |
+while IFS= read -r branch; do
+    case "$branch" in
+        */HEAD)
+            continue
+            ;;
+    esac
+
+    if git grep -q -I -F 'SCN2' "$branch" -- 2>/dev/null; then
+        printf '%s\n' "${branch#*/}"
+    fi
+done

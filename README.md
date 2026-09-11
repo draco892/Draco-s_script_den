@@ -63,8 +63,12 @@ Draco-s_script_den/
 │   ├── port_self_update.sh
 │   └── README-port-self-update.txt
 │
+├── git/                        # Git utility scripts
+│   ├── find-remote-branches-containing-string_original.sh
+│   └── README.md
 ├── sourcegit/                   # SourceGit
 │   └── README.md                # SourceGit documentation
+│
 ├── LICENSE                      # Project License
 └── README.md                    # You're reading it right now!
 ```
@@ -106,6 +110,13 @@ These scripts automate the compilation and installation of open-source photograp
 The `sourcegit/` directory contains scripts and documentation for building and running SourceGit.
 
 SourceGit is a tool designed to help manage and interact with source code, and these scripts facilitate building the application as a native macOS application bundle. For details on building, see the documentation in the `sourcegit/` directory.
+
+
+### Git
+The `git/` directory contains general git scripts.
+
+
+- **find-remote-branches-containing-string_original.sh**: This script fetches and prunes all remote-tracking references, enumerates every known remote branch, and searches for the literal string `SCN2`. It prints the branch name for any branch where a match is found in a non-binary file.
 
 ## How to Use This Madness
 
