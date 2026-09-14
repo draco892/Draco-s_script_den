@@ -117,6 +117,8 @@ The `git/` directory contains general git scripts.
 
 
 - **find-remote-branches-containing-string_original.sh**: This script fetches and prunes all remote-tracking references, enumerates every known remote branch, and searches for the literal string `SCN2`. It prints the branch name for any branch where a match is found in a non-binary file.
+- **git_submodule_update_original.sh**: A script to initialize and update submodules recursively, ensuring that nested submodules are also downloaded and populated with the correct code.
+
 
 ## How to Use This Madness
 
