@@ -4,6 +4,6 @@ git checkout master
 git pull
 cd /Users/draco892/src/darktable/packaging/macosx
 ./2_build_hb_darktable_custom.sh
-export CODECERT="your.developer@apple.id"
+export CODECERT="draconian892@gmail.com"
 ./3_make_hb_darktable_package.sh
 cp -R build/macosx/package/darktable.app /Applications/
