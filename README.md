@@ -54,6 +54,10 @@ Draco-s_script_den/
 │   ├── build-darktable-macos-arm64_C++23.sh
 │   └── build-darktable-macos-arm64_C++26.sh
 │
+│   ├── build-darktable-macos_Release.sh
+│   ├── build-darktable-macos_dmg.sh
+│   └── darktable-macos-build-guide.md
+│
 ├── LightZone/                   # LightZone build scripts
 │   ├── build-lightzone-macos-arm64.sh
 │   ├── build-lightzone-macos-arm64_app_build.sh

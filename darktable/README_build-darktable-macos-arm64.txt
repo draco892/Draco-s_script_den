@@ -32,3 +32,7 @@ brew install cmake lua@5.4 gtk+3 libxml2 lensfun exiv2 \
 
 # Install Xcode Command Line Tools (if not present)
 xcode-select --install
+
+---
+## 📘 Full Build and Packaging Guide
+For a comprehensive guide on building, packaging, and distributing darktable (including Release builds and DMG creation), please see the [darktable-macos-build-guide.md](darktable-macos-build-guide.md) file in this directory.
