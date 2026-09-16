@@ -12,6 +12,17 @@ This guide provides build scripts for compiling [darktable](https://www.darktabl
 | `build-darktable-macos-arm64_C++20.sh` | C++20 | Stable          |
 | `build-darktable-macos-arm64_C++23.sh` | C++23 | Partial         |
 | `build-darktable-macos-arm64_C++26.sh` | C++26 | Experimental    |
+|
+| ---
+|
+| ## Distribution & Signing
+| 
+| | Script | Output | Status |
+|--------|--------|--------|
+| `build-darktable-macos_Release.sh` | Standard Release | Stable |
+| `build-darktable-macos_dmg.sh` | DMG Build | Stable |
+| `build-darktable-macos_signed_Release.sh` | Signed Release | Stable |
+| `build-darktable-macos_signed_dmg.sh` | Signed DMG | Stable |
 
 ---
 
