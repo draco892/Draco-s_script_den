@@ -100,7 +100,7 @@ The `Image_Manipulation/` directory contains scripts and documentation for worki
 
 These scripts automate the compilation and installation of open-source photography software on macOS Apple Silicon.
 
-- **darktable/**: Contains scripts to build darktable with different C++ standards (17, 20, 23, 26).
+- **darktable/**: Contains scripts to build, package, and sign darktable with different C++ standards (17, 20, 23, 26). This includes scripts for Release builds, DMG creation, and Apple Developer ID signing.
 - **LightZone/**: Contains scripts for building and installing the LightZone editor.
   - **build-lightzone-macos-arm64.sh**: Builds the LightZone photo editor using Java 21 and Homebrew dependencies.
   - **build-lightzone-macos-arm64_app_build.sh**: Creates a macOS application bundle from the LightZone build and installs it into `/Applications`.
