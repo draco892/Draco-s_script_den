@@ -53,7 +53,6 @@ Draco-s_script_den/
 │   ├── build-darktable-macos-arm64_C++20.sh
 │   ├── build-darktable-macos-arm64_C++23.sh
 │   └── build-darktable-macos-arm64_C++26.sh
-│
 │   ├── build-darktable-macos_Release.sh
 │   ├── build-darktable-macos_dmg.sh
 │   └── darktable-macos-build-guide.md
