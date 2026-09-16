@@ -10,6 +10,8 @@ rm -rf ../../build
 
 ./2_build_hb_darktable_custom.sh
 
+export CODECERT="draconian892@gmail.com"
+
 rm -rf ../../build/macosx/package
 
 ./3_make_hb_darktable_package.sh
