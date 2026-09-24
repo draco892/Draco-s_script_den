@@ -54,6 +54,7 @@ Draco-s_script_den/
 │   ├── build-darktable-macos-arm64_C++23.sh
 │   ├── build-darktable-macos-arm64_C++26.sh
 │   ├── build-darktable-macos_Release.sh
+│   ├── build-darktable-macos_Release_Custom.sh
 │   ├── build-darktable-macos_dmg.sh
 │   └── darktable-macos-build-guide.md
 │
@@ -80,7 +81,7 @@ Draco-s_script_den/
 
 ### AI Lab
 
-The `AI_Lab/` directory contains experimental AI agents that leverage Local LLMs (via Ollama) to interact with and analyze your codebases.
+The `AI_Lab/` directory contains experimental AI agents powered by Local LLMs (via Ollama) to interact with and analyze your codebases.
 
 - **agent.py**: An interactive, "expert-mode" agent designed for deep-dive technical analysis. It is optimized for navigating C++/Qt projects, searching for specific symbols, and understanding code relationships.
 - **code_agent.py**: A lightweight, automated utility designed for structural exploration, using pattern-based searching to map out project hierarchies.
@@ -90,10 +91,11 @@ The `AI_Lab/` directory contains experimental AI agents that leverage Local LLMs
 The `Image_Manipulation/` directory contains scripts and documentation for working with images and creating animated GIFs.
 
 - **GifCreation.bash**: Create animated GIFs from sequences of images using ffmpeg. Perfect for making tutorials, memes, or capturing animations.
-- **processImageLogo.sh**: Applies a logo to an image.
+- **processImageLogo.sh**: Applies a logo to an image using ImageMagick. Features intelligent scaling (handling panoramas and vertical images) and parallel processing.
 - **processImageLogo_transparent.sh**: Applies a logo to an image with 30% opacity.
 - **README_GifCreation.txt**: Detailed documentation on how to create GIFs from image sequences, including parameter explanations and usage examples.
 - **README_processImageLogo.txt**: Documentation for image processing workflows, including logo manipulation and batch image operations.
+
 
 ### Build Scripts
 
@@ -112,7 +114,7 @@ These scripts automate the compilation and installation of open-source photograp
 
 The `sourcegit/` directory contains scripts and documentation for building and running SourceGit.
 
-SourceGit is a tool designed to help manage and interact with source code, and these scripts facilitate building the application as a native macOS application bundle. For details on building, see the documentation in the `sourcegit/` directory.
+SourceGit is a .NET-based application designed to help manage and interact with source code. This directory includes instructions for building and publishing the application as a native macOS application bundle for Apple Silicon. For details on building, see the documentation in the `sourcegit/` directory.
 
 
 ### Git
@@ -129,8 +131,10 @@ The `git/` directory contains general git scripts.
 
 - A Unix-like system (macOS, Linux, WSL)
 - `bash` (shocking, I know)
-- `ffmpeg` for the image manipulation goodies
+- `ffmpeg` for image manipulation
+- `ImageMagick` for logo processing
 - `git` for version control operations
+- `.NET SDK` for SourceGit
 - `sudo` access for system-level scripts
 - A sense of adventure (optional but recommended)
 

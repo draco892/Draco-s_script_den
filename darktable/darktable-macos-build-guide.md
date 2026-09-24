@@ -40,6 +40,14 @@ cd /Users/draco892/src/darktable/packaging/macosx
 
 This wipes and recreates `darktable/build`, configures, compiles with all CPU cores, and installs into `darktable/build/macosx`.
 
+**Convenience shortcut:**
+
+You can also use the `build-darktable-macos_Release_Custom.sh` script to handle the git checkout and compilation in one go:
+
+```bash
+./build-darktable-macos_Release_Custom.sh
+```
+
 ## Step 3 — Create the .app bundle
 
 ```bash
