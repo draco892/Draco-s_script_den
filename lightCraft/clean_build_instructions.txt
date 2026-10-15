@@ -1,6 +1,5 @@
-source packaging/env.sh
-source packaging/fonts.sh
-prepare_fonts
+export CRAFT_FONTS_DIR="/Users/draco892/Documents/GIT/craft-fonts"
+export CRAFT_FONTS_REQUIRED=1
 
 cargo clean
 
