@@ -1,0 +1,10 @@
+source packaging/env.sh
+source packaging/fonts.sh
+prepare_fonts
+
+cargo clean
+
+cargo build --release --locked \
+  --target aarch64-apple-darwin \
+  -p lightcraft -p lightcraft-cli \
+  --features lightcraft/heif,lightcraft-cli/heif
