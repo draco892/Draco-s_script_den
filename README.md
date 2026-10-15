@@ -63,6 +63,9 @@ Draco-s_script_den/
 │   ├── build-lightzone-macos-arm64_app_build.sh
 │   └── README-lightzone-build-v2.txt
 │
+├── lightCraft/                 # LightCraft
+│   └── README.md               # LightCraft documentation
+│
 ├── port/                        # MacPorts maintenance
 │   ├── port_self_update.sh
 │   └── README-port-self-update.txt
@@ -107,6 +110,8 @@ These scripts automate the compilation and installation of open-source photograp
   - **build-lightzone-macos-arm64_app_build.sh**: Creates a macOS application bundle from the LightZone build and installs it into `/Applications`.
 
 ### System Maintenance
+
+- **LightCraft/**: A high-performance media processing tool built with Rust, featuring support for HEIF and other modern image formats.
 
 - **port_self_update.sh**: Keeps MacPorts up to date by refreshing the ports tree, upgrading outdated packages, and removing inactive ports. Provides colored output and fail-fast error handling for safe system maintenance.
 

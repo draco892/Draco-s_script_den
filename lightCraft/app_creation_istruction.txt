@@ -1,0 +1,5 @@
+bash packaging/macos/package.sh --arch aarch64 --skip-build
+
+it will be created:
+- target/macos-package/LightCraft.app
+- the DMG and the ZIP CLI files inside the dist/release/ directory
