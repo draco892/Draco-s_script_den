@@ -1,0 +1,14 @@
+export CRAFT_FONTS_DIR="/Users/draco892/Documents/GIT/craft-fonts"
+export CRAFT_FONTS_REQUIRED=1
+
+cargo clean
+
+cargo build --release --locked \
+  --target aarch64-apple-darwin \
+  -p lightcraft -p lightcraft-cli \
+  --features lightcraft/heif,lightcraft-cli/heif \
+&& bash packaging/macos/package.sh --arch aarch64 --skip-build
+
+it will be created:
+- target/macos-package/LightCraft.app
+- the DMG and the ZIP CLI files inside the dist/release/ directory
