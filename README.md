@@ -44,9 +44,12 @@ Draco-s_script_den/
 │   ├── Originals/               # Original source images
 │   ├── GifCreation.bash         # Create animated GIFs from image sequences
 │   ├── processImageLogo.sh      # Logo application script
-│   ├── processImageLogo_transparent.sh # Logo with 30% opacity
+│   ├── processImageLogo_transparent.sh # Single logo with 50% opacity
+│   ├── processImageEventLogo_transparent.sh # Two logos with 75% opacity and separator
 │   ├── README_GifCreation.txt   # Documentation for GIF creation
-│   └── README_processImageLogo.txt # Documentation for logo processing
+│   ├── README_processImageLogo.txt # Documentation for logo processing
+│   ├── README_processImageLogo_transparent.txt # Transparent single-logo guide
+│   └── README_processImageEventLogo_transparent.txt # Event logo guide
 │
 ├── darktable/                   # Darktable build scripts (Apple Silicon)
 │   ├── build-darktable-macos-arm64_C++17.sh
@@ -95,9 +98,13 @@ The `Image_Manipulation/` directory contains scripts and documentation for worki
 
 - **GifCreation.bash**: Create animated GIFs from sequences of images using ffmpeg. Perfect for making tutorials, memes, or capturing animations.
 - **processImageLogo.sh**: Applies a logo to an image using ImageMagick. Features intelligent scaling (handling panoramas and vertical images) and parallel processing.
-- **processImageLogo_transparent.sh**: Applies a logo to an image with 30% opacity.
+- **processImageLogo_transparent.sh**: Applies a single logo with 50% opacity to `.jpeg` images, using adaptive scaling and parallel processing. Saves results in `WITH_LOGO/`.
+- **processImageEventLogo_transparent.sh**: Places GH26 on the left and Draco on the right, with a white vertical separator, in the bottom-right corner of `.jpeg` images. Transparent margins are trimmed before the logos are scaled into identical square panels, giving them similar visible dimensions. Equal spacing keeps the separator centered between them. The assembled group is reduced to 50% of its calculated width and height. Both logos and the separator share a configurable opacity (75% by default). Saves results in `WITH_EVENT_LOGO/`.
+- Both transparent logo scripts show a progress bar with percentage, completed images and remaining images. Completion events are counted by a single reader to keep progress accurate during parallel processing.
 - **README_GifCreation.txt**: Detailed documentation on how to create GIFs from image sequences, including parameter explanations and usage examples.
 - **README_processImageLogo.txt**: Documentation for image processing workflows, including logo manipulation and batch image operations.
+- **README_processImageLogo_transparent.txt**: Usage guide for the transparent single-logo script.
+- **README_processImageEventLogo_transparent.txt**: Requirements, logo paths, opacity, sizing, progress and output details for the event logo script.
 
 
 ### Build Scripts
@@ -138,6 +145,7 @@ The `git/` directory contains general git scripts.
 - `bash` (shocking, I know)
 - `ffmpeg` for image manipulation
 - `ImageMagick` for logo processing
+- `bc` for logo scaling calculations; the transparent logo scripts target macOS and use `sysctl -n hw.ncpu` for CPU detection
 - `git` for version control operations
 - `.NET SDK` for SourceGit
 - `sudo` access for system-level scripts
@@ -150,12 +158,21 @@ The `git/` directory contains general git scripts.
 git clone https://github.com/draco892/Draco-s_script_den.git
 cd Draco-s_script_den
 
-# Make scripts executable
-chmod +x *.sh Image_Manipulation/*.bash
+# Make image scripts executable
+chmod +x Image_Manipulation/*.sh Image_Manipulation/*.bash
 
 # Run a script
 ./Image_Manipulation/GifCreation.bash
 ```
+
+To apply the event logos, configure `LOGO_1`, `LOGO_2` and `LOGO_OPACITY` near the top of `Image_Manipulation/processImageEventLogo_transparent.sh`, then run it from the directory containing your photos:
+
+```bash
+cd "/path/to/photos"
+bash "/path/to/Draco-s_script_den/Image_Manipulation/processImageEventLogo_transparent.sh"
+```
+
+Replace these example paths with your own. The script processes only `*.jpeg` files in the current working directory and writes numbered outputs to `WITH_EVENT_LOGO/`, preserving the originals. Running it again overwrites output files with matching names. See the [event logo guide](Image_Manipulation/README_processImageEventLogo_transparent.txt) for the default logo paths and layout settings.
 
 ## Documentation
 
@@ -163,6 +180,8 @@ Each script comes with its own README or comments. Check these out:
 
 - [`README_GifCreation.txt`](Image_Manipulation/README_GifCreation.txt) - Everything about making GIFs
 - [`README_processImageLogo.txt`](Image_Manipulation/README_processImageLogo.txt) - Logo and image processing tips
+- [`README_processImageLogo_transparent.txt`](Image_Manipulation/README_processImageLogo_transparent.txt) - Transparent single-logo usage
+- [`README_processImageEventLogo_transparent.txt`](Image_Manipulation/README_processImageEventLogo_transparent.txt) - Two event logos, shared opacity, separator and progress bar
 - Build script READMEs in the repository root for darktable, LightZone, and MacPorts maintenance
 
 ## Contributing

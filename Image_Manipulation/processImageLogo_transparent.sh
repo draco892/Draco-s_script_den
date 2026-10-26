@@ -30,10 +30,6 @@ jobs=$(sysctl -n hw.ncpu)
 jobs=$(( jobs * 75 / 100 ))
 jobs=$(( jobs < 1 ? 1 : jobs ))
 
-# Create a temporary file to track progress across different parallel processes
-progress_file=$(mktemp)
-echo 0 > "$progress_file"
-
 # --- THE WORKER FUNCTION ---
 # This function runs inside every background process
 process_one() {
@@ -65,7 +61,7 @@ process_one() {
 
    # Apply the logo via ImageMagick with 50% opacity (1.0 no transparency, 0.30 70% transparency and so on)
    magick -limit thread 1 "$file" \
-   \( "../../../Draco_logo/logo_White.png" \
+   \( "/Users/draco892/Pictures/Logo/Draco_logo/logo_White.png" \
       -resize "${logo_size}x" \
       -channel A -evaluate multiply 0.50 +channel \
    \) \
@@ -74,23 +70,25 @@ process_one() {
    -composite \
    "WITH_LOGO/DRA_SIG26_$(printf "%03d" "$idx").jpeg"
 
-   # --- PROGRESS TRACKING (Atomic Update) ---
-   # Read the current count, increment it, and write it back to the temp file
-   done_count=$(( $(cat "$progress_file") + 1 ))
-   echo "$done_count" > "$progress_file"
-
-   # Visual Progress Bar Output
-   # This creates a bar using '#' characters based on percentage done
-   printf "\r[%s] %3d%% processed: %d left: %d" \
-   "$(printf '%*s' "$(( done_count * 40 / total ))" '' | tr ' ' '#')" \
-   "$(( done_count * 100 / total ))" \
-   "$done_count" \
-   "$(( total - done_count ))"
+   # Send one completion event only after the image has been saved successfully.
+   printf 'done\n'
 }
 
 # Export the function and variables so xargs can see them in sub-shells
 export -f process_one
-export total progress_file
+export total
+
+# A single reader updates the bar, so parallel workers cannot lose increments
+# or overwrite each other's progress output.
+show_progress() {
+   local done_count="$1" bar
+   printf -v bar '%*s' "$(( done_count * 40 / total ))" ''
+   printf '\r[%-40s] %3d%% processed: %*d left: %*d' \
+      "${bar// /#}" \
+      "$(( done_count * 100 / total ))" \
+      "${#total}" "$done_count" \
+      "${#total}" "$(( total - done_count ))"
+}
 
 # --- EXECUTION ENGINE (The Pipeline) ---
 i=1
@@ -98,8 +96,15 @@ for file in "${files[@]}"; do
 # We use a 'null separator' (\0) to handle filenames that have spaces safely
 printf '%s\0%s\0' "$i" "$file"
 i=$((i + 1))
-done | xargs -0 -n 2 -P "$jobs" bash -c 'process_one "$@"' _
+done | xargs -0 -n 2 -P "$jobs" bash -euo pipefail -c 'process_one "$@"' _ | (
+   done_count=0
+   show_progress "$done_count"
+   while IFS= read -r completion; do
+      done_count=$(( done_count + 1 ))
+      show_progress "$done_count"
+   done
+   printf '\n'
+)
 
 # --- CLEANUP ---
-printf "\n\n\nDone. Processed %d files using %d parallel jobs.\n\n" "$total" "$jobs"
-rm -f "$progress_file" # Remove the temporary counter file
+printf "\nDone. Processed %d files using %d parallel jobs.\n\n" "$total" "$jobs"
