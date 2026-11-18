@@ -43,6 +43,11 @@ Draco-s_script_den/
 │   ├── Draco_logo/              # Logo assets
 │   ├── Originals/               # Original source images
 │   ├── GifCreation.bash         # Create animated GIFs from image sequences
+│   ├── renameImages.sh          # Rename JPEG files without adding logos
+│   ├── README_renameImages.txt  # JPEG renaming quick start guide
+│   ├── renameImagesWithSuffix.sh # JPEG renaming with configurable suffix
+│   ├── README_renameImagesWithSuffix.txt # Suffix renaming quick start guide
+│   ├── README.md               # Overview and JPEG renaming guide
 │   ├── processImageLogo.sh      # Logo application script
 │   ├── processImageLogo_transparent.sh # Single logo with 50% opacity
 │   ├── processImageEventLogo_transparent.sh # Two logos with 75% opacity and separator
@@ -96,6 +101,9 @@ The `AI_Lab/` directory contains experimental AI agents powered by Local LLMs (v
 
 The `Image_Manipulation/` directory contains scripts and documentation for working with images and creating animated GIFs.
 
+- **renameImages.sh**: Renames `.jpg` and `.jpeg` files (case-insensitive) from the current working directory into an automatically created `RENAME_IMAGES/` subfolder, moving the files without adding logos or modifying image contents and metadata. Prefix, starting number and minimum digit count are configurable; defaults produce `DRA_SIG26_0001.jpeg`, `DRA_SIG26_0002.jpeg`, etc. Requires only Bash and standard Unix utilities, and checks destination names before renaming to prevent overwrites. See the [local README](Image_Manipulation/README.md) for details.
+- **renameImagesWithSuffix.sh**: Adds an optional fourth parameter, `SUFFIX`, to the same renaming workflow. For example, `"DRA_SIG26_" 42 4 "_OPENING"` produces `RENAME_IMAGES/DRA_SIG26_0042_OPENING.jpeg`. The suffix is inserted literally before `.jpeg`, defaults to empty and must not contain `/`. Both versions move files into the same `RENAME_IMAGES/` folder and refuse to overwrite existing targets.
+- Both renaming scripts use parallel jobs based on 75% of detected CPU cores, with at least one job and no more jobs than files. CPU detection uses `sysctl` on macOS or `getconf` on Linux, with a one-core fallback. Names are assigned before execution to preserve numbering, and a single reader tracks progress.
 - **GifCreation.bash**: Create animated GIFs from sequences of images using ffmpeg. Perfect for making tutorials, memes, or capturing animations.
 - **processImageLogo.sh**: Applies a logo to an image using ImageMagick. Features intelligent scaling (handling panoramas and vertical images) and parallel processing.
 - **processImageLogo_transparent.sh**: Applies a single logo with 50% opacity to `.jpeg` images, using adaptive scaling and parallel processing. Saves results in `WITH_LOGO/`.
@@ -165,6 +173,24 @@ chmod +x Image_Manipulation/*.sh Image_Manipulation/*.bash
 ./Image_Manipulation/GifCreation.bash
 ```
 
+To rename JPEG files without adding logos, run from the folder containing the photos and optionally supply the prefix, starting number and minimum digit count:
+
+```bash
+cd "/path/to/photos"
+bash "/path/to/Draco-s_script_den/Image_Manipulation/renameImages.sh" "DRA_SIG26_" 1 4
+```
+
+This creates `RENAME_IMAGES/` inside the current working directory and moves the files into it as `DRA_SIG26_0001.jpeg`, `DRA_SIG26_0002.jpeg`, etc., in filename order. Source files are moved, not copied. The script location does not affect the output location. It includes `.jpg` and `.jpeg` in any capitalization, skips symlinks and subfolders, and stops before renaming if any destination would conflict with an existing file. See the [renaming guide](Image_Manipulation/README.md) for parameters and behavior.
+
+To include a suffix after the number, use the additional script from the photo folder:
+
+```bash
+cd "/path/to/photos"
+bash "/path/to/Draco-s_script_den/Image_Manipulation/renameImagesWithSuffix.sh" "DRA_SIG26_" 42 4 "_OPENING"
+```
+
+This moves the files to `RENAME_IMAGES/DRA_SIG26_0042_OPENING.jpeg`, `RENAME_IMAGES/DRA_SIG26_0043_OPENING.jpeg`, etc. See the [suffix renaming guide](Image_Manipulation/README_renameImagesWithSuffix.txt).
+
 To apply the event logos, configure `LOGO_1`, `LOGO_2` and `LOGO_OPACITY` near the top of `Image_Manipulation/processImageEventLogo_transparent.sh`, then run it from the directory containing your photos:
 
 ```bash
@@ -178,6 +204,9 @@ Replace these example paths with your own. The script processes only `*.jpeg` fi
 
 Each script comes with its own README or comments. Check these out:
 
+- [`Image_Manipulation/README.md`](Image_Manipulation/README.md) - Image tools overview and configurable JPEG renaming without logos
+- [`README_renameImages.txt`](Image_Manipulation/README_renameImages.txt) - JPEG renaming quick start, configurable parameters, examples and troubleshooting
+- [`README_renameImagesWithSuffix.txt`](Image_Manipulation/README_renameImagesWithSuffix.txt) - JPEG renaming with configurable prefix, number, digit count and suffix
 - [`README_GifCreation.txt`](Image_Manipulation/README_GifCreation.txt) - Everything about making GIFs
 - [`README_processImageLogo.txt`](Image_Manipulation/README_processImageLogo.txt) - Logo and image processing tips
 - [`README_processImageLogo_transparent.txt`](Image_Manipulation/README_processImageLogo_transparent.txt) - Transparent single-logo usage
